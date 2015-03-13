@@ -5,7 +5,7 @@ A Personal Wiki
 
 ```
 sudo apt-get update 
-sudo apt-get install libicu-dev g++ build-essentials gem make
+sudo apt-get install libicu-dev g++ build-essential gem make
 sudo gem install bundle
 
 git clone https://github.com/Kevin-M-Smith/wiki.git
