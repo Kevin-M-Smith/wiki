@@ -1,0 +1,189 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'optparse'
+require 'rubygems'
+require 'gollum-site'
+
+help = <<HELP
+Gollum Site is a static site generator for Gollum Wikis
+
+Basic Command Line Usage:
+  gollum-site [OPTIONS] [COMMAND]
+
+        Available commands:
+
+        generate      Generate a static site
+        serve         Start a web server to view generated site
+        import        Import the default layout into the current wiki
+
+Options:
+HELP
+
+options = {
+  'ref' => Grit::Repo.new('.').git.rev_parse({}, "HEAD"), # current HEAD
+  'working' => false,
+  'base_path' => '/',
+  'output_path' => '_site',
+  'port' => 8000,
+  'watch' => false,
+  'level' => :warn,
+  'allow_elements' => [],
+  'allow_attributes' => [],
+  'allow_protocols' => []
+}
+opts = OptionParser.new do |opts|
+  opts.banner = help
+
+  opts.on("--ref REF", "Branch or commit to generate") do |ref|
+    options['ref'] = ref
+  end
+
+  opts.on("--working", "Use working changes during site generation") do
+    options['working'] = true
+  end
+
+  opts.on("--base_path BASE_PATH", "Prefix to apply to internal links") do |base_path|
+    options['base_path'] = base_path
+  end
+
+  opts.on("--output_path [OUTPUT_PATH]", "Path to write generated site") do |output_path|
+    options['output_path'] = output_path
+  end
+
+  opts.on("--port PORT", "Port to use when serving site (default 8000)") do |port|
+    options['port'] = port
+  end
+
+  opts.on("--watch", "Regenerate any changes to the working directory") do
+    options['watch'] = true
+  end
+
+  opts.on("--allow_elements ELMS", "Custom elements to prevent sanitization (comma separated)") do |elements|
+    options['allow_elements'] = elements.split(',')
+  end
+
+  opts.on("--allow_attributes ATTRS", "Custom attributes to prevent sanitization (comma separated)") do |attrs|
+    options['allow_attributes'] = attrs.split(',')
+  end
+
+  opts.on("--allow_protocols PROTOCOLS", "Custom protocols to prevent sanitization (comma separated)") do |protocols|
+    options['allow_protocols'] = protocols.split(',')
+  end
+
+  opts.on("--log_level LEVEL", %w[debug info warn error fatal],
+          "Set logging level (debug, info, warn, error, fatal)") do |level|
+    options['level'] = level.to_sym
+  end
+
+  opts.on_tail("--help", "Show this information") do
+    puts opts
+    exit! 0
+  end
+
+  opts.on_tail("--version", "Display current version.") do
+    require 'gollum-site/version'
+    puts "Gollum Site " + Gollum::Site::VERSION
+    exit! 0
+  end
+end
+
+begin
+  opts.parse!
+rescue Exception => e
+  puts e.message
+  puts ""
+  puts opts
+  exit! 1
+end
+
+Gollum::SiteLog.level = options['level']
+
+cmd = ARGV[0]
+
+case cmd
+when 'generate'
+  site = Gollum::Site.new('.', {
+                            :base_path => options['base_path'],
+                            :output_path => options['output_path'],
+                            :version => options['working'] ? :working : options['ref'],
+                            :allow_elements => options['allow_elements'],
+                            :allow_attributes => options['allow_attributes'],
+                            :allow_protocols => options['allow_protocols']
+                          })
+  start = Time.now
+  site.generate()
+  stop = Time.now
+  puts "Generated site in #{stop - start}(s)"
+when 'serve'
+  if options['watch']
+    site = Gollum::Site.new('.', {
+                            :base_path => options['base_path'],
+                            :output_path => options['output_path'],
+                            :version => :working
+                            })
+    puts "Generating site"
+    start = Time.now
+    site.generate()
+    stop = Time.now
+    puts "Generated site in #{stop - start}(s)"
+
+    require 'directory_watcher'
+
+    dw = DirectoryWatcher.new('.', {
+                                :glob => '**/*',
+                                :pre_load => true,
+                                :interval => 1
+                              })
+
+    dw.add_observer do |*args|
+      args.each do |event|
+        # Only respond to modified/added events
+        if event.type == :modified or event.type == :added
+          # Ignore modifications to output path
+          unless ::File.expand_path(event.path).match(::File.expand_path(site.output_path))
+            item = event.path[2..-1]
+            puts "Regenerating site"
+            start = Time.now
+            site.generate()
+            stop = Time.now
+            puts "Generated site in #{stop - start}(s)"
+          end
+        end
+      end
+    end
+
+    dw.start
+  end
+
+  require 'webrick'
+  include WEBrick
+
+  mime_types = WEBrick::HTTPUtils::DefaultMimeTypes
+  mime_types.store 'js', 'application/javascript'
+
+  s = HTTPServer.new(
+                     :Port            => options['port'],
+                     :DocumentRoot    => options['output_path'],
+                     :MimeTypes       => mime_types,
+                     :DirectoryIndex  => ['Home.html']
+                     )
+
+  t = Thread.new {
+    s.start
+  }
+
+  trap("INT") { s.shutdown }
+  t.join()
+when 'import'
+  dir = Gollum::Site.default_layout_dir()
+  layout = ::File.join(dir, "_Layout.html")
+  css = ::File.join(dir, "css")
+  javascript = ::File.join(dir, "javascript")
+  FileUtils.cp_r([layout, css, javascript], '.')
+  puts "The default layout has been imported. Don't forget to commit these changes."
+else
+  puts opts
+  exit
+end
