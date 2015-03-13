@@ -4,12 +4,19 @@ A Personal Wiki
 ## Installation Instructions
 
 ```
-git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 sudo apt-get update 
 sudo apt-get install libicu-dev g++ build-essentials gem make
 sudo gem install bundle
 
+git clone https://github.com/Kevin-M-Smith/wiki.git
+cd wiki
 bundle install
+sudo gem install gollum-site
+
+cd ../
+git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
+cd wiki
+gollum-site generate
 
 ```
 
