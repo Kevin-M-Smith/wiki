@@ -12,6 +12,7 @@ sudo gem install bundle
 git clone https://github.com/Kevin-M-Smith/wiki.git
 cd wiki
 bundle install
+sudo bundle exec gem build gollum-site.gemspec 
 sudo gem install gollum-site
 
 cd ../
