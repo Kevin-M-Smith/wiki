@@ -16,7 +16,7 @@ sudo gem install gollum-site
 
 cd ../
 git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
-cd wiki
+cd wiki.wiki
 gollum-site generate
 
 ```
