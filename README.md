@@ -5,10 +5,7 @@ A Personal Wiki
 
 ```
 sudo apt-get update 
-sudo apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3
-
-sudo rm /usr/bin/ruby
-sudo ln -s /usr/bin/ruby1.9.3 /usr/bin/ruby
+sudo apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3 zlib1g-dev
 
 sudo gem install bundle
 
