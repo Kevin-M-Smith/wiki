@@ -5,7 +5,7 @@ A Personal Wiki
 
 ```
 sudo apt-get update 
-sudo apt-get install -y git libicu-dev g++ build-essential gem make
+sudo apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3
 sudo gem install bundle
 
 git clone https://github.com/Kevin-M-Smith/wiki.git
