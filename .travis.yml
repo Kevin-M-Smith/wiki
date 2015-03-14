@@ -1,0 +1,14 @@
+language: ruby
+
+before_install: apt-get update && apt-get remove -y ruby1.8*
+install: 
+- apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3 zlib1g-dev
+- gem install bundle
+
+script: bundle exec gem build gollum-site.gemspec 
+
+after_success:
+- gem install gollum-site
+- git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
+- cd wiki.wiki
+- gollum-site generate
