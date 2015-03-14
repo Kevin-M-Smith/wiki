@@ -17,12 +17,11 @@ script:
 - echo $BUNDLE_GEMFILE
 - pwd
 - ls
-- git branch
-- git log
+- git clone --single-branch --branch gh-pages https://github.com/Kevin-M-Smith/wiki.git wiki-pages
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
 - export WIKI_VERISON=`git rev-parse HEAD`
-- bundle exec gollum-site generate ../wiki/
-- cd ../wiki
+- bundle exec gollum-site generate ../wiki-pages/
+- cd ../wiki-pages
 - git status
