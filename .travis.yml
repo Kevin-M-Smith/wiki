@@ -6,7 +6,7 @@ cache:
 - apt
 
 script: 
-- bundle exec gem build gollum-site
+- bundle exec gem build gollum-site.gemspec
 
 after_success:
 - bundle exec gem install gollum-site
