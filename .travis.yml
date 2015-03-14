@@ -23,7 +23,7 @@ script:
 - cd wiki.wiki
 - export WIKI_VERSION=`git rev-parse HEAD`
 - export COMMIT_MESSAGE="Built from "$WIKI_VERSION
-- bundle exec gollum-site generate --output_path ../wiki-pages/ --base_path ./
+- bundle exec gollum-site generate --output_path ../wiki-pages/ --base_path /wiki/
 - cd ../wiki-pages
 - cp ../wiki-pages/Home/index.html index.html
 - ls
