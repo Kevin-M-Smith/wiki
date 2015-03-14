@@ -22,6 +22,7 @@ script:
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
 - export WIKI_VERISON=`git rev-parse HEAD`
-- bundle exec gollum-site generate ../wiki-pages/
+- bundle exec gollum-site generate --output_path ../wiki-pages/
 - cd ../wiki-pages
+- ls
 - git status
