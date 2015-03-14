@@ -18,11 +18,21 @@ script:
 - pwd
 - ls
 - cd ../
-- git clone --single-branch --branch gh-pages https://github.com/Kevin-M-Smith/wiki.git wiki-pages
+- mkdir wiki-pages
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
 - export WIKI_VERISON=`git rev-parse HEAD`
+- export COMMIT_MESSAGE="Built from "$WIKI_VERSION
 - bundle exec gollum-site generate --output_path ../wiki-pages/
 - cd ../wiki-pages
 - ls
-- git status
+- git init
+- git config user.name "Kevin M. Smith"
+- git config user.email "kms2227@columbia.edu"
+- git add . 
+- git commit -m $COMMIT_MESSAGE
+- git push --force --quiet "https://${GH_TOKEN}@github.com/Kevin-M-Smith/wiki.git" gh-pages
+
+env:
+  global:
+    secure: "AzPDZG6e5yDiyqfRfrGi4R+WWdWrVpVa0/4kIq1qjXkyN6+t0hsU2qCmUmvgMS7ebvl87xh1mkLu7lK18gFV3KFF3q468kXTaefCZHTuW3X5yHUvrQX978ota+L+vq+UbKbHy3n9aORF/Cx+xrZCqpZGRcqJbUGxgQGGDYr1kEQ="
