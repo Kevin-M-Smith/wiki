@@ -10,7 +10,7 @@ script:
 - bundle exec gem install gollum-site-0.1.12.KMS.gem
 - bundle show gollum-site
 - bundle exec gollum-site
-- export $BUNDLE_GEMFILE=$PWD/gollum-site.gemfile
+- export BUNDLE_GEMFILE=$PWD/gollum-site.gemfile
 - ls
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
