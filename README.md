@@ -5,6 +5,7 @@ A Personal Wiki
 
 ```
 sudo apt-get update 
+sudo apt-get remove -y ruby1.8*
 sudo apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3 zlib1g-dev
 
 sudo gem install bundle
