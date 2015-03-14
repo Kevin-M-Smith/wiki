@@ -8,8 +8,6 @@ cache:
 script: 
 - bundle exec gem build gollum-site.gemspec
 - bundle exec gem install gollum-site-0.1.12.KMS.gem
-
-after_success:
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
