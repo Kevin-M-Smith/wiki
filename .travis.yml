@@ -11,6 +11,8 @@ script:
 - bundle show gollum-site
 - bundle exec gollum-site
 - export BUNDLE_GEMFILE=$PWD/gollum-site.gemfile
+- echo $BUNDLE_GEMFILE
+- pwd
 - ls
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
