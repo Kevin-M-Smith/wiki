@@ -21,7 +21,7 @@ script:
 - mkdir wiki-pages
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
-- export WIKI_VERISON=`git rev-parse HEAD`
+- export WIKI_VERSION=`git rev-parse HEAD`
 - export COMMIT_MESSAGE="Built from "$WIKI_VERSION
 - bundle exec gollum-site generate --output_path ../wiki-pages/
 - cd ../wiki-pages
