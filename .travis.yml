@@ -7,9 +7,9 @@ cache:
 
 script: 
 - bundle exec gem build gollum-site.gemspec
+- bundle exec gem install gollum-site
 
 after_success:
-- bundle exec gem install gollum-site
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
