@@ -5,6 +5,8 @@ cache:
 - bundler
 - apt
 
+script: bundle exec gem install gollum-site
+
 after_success:
 - sudo gem install gollum-site
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
