@@ -9,6 +9,7 @@ script:
 - bundle exec gem build gollum-site.gemspec
 - bundle exec gem install gollum-site-0.1.12.KMS.gem
 - bundle show gollum-site
+- ls
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
