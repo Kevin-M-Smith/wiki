@@ -25,6 +25,7 @@ script:
 - export COMMIT_MESSAGE="Built from "$WIKI_VERSION
 - bundle exec gollum-site generate --output_path ../wiki-pages/
 - cd ../wiki-pages
+- cp ../wiki-pages/Home/index.html index.html
 - ls
 - git init
 - git config user.name "Kevin M. Smith"
@@ -32,8 +33,8 @@ script:
 - git add .
 - git checkout -b gh-pages
 - git commit -m "$COMMIT_MESSAGE"
-- git push --force --quiet "https://${GH_TOKEN}@github.com/Kevin-M-Smith/wiki.git" gh-pages:gh-pages
+- git push --force --quiet "https://${GH_TOKEN}@github.com/Kevin-M-Smith/wiki.git" gh-pages:gh-pages > /dev/null 2>&1
 
 env:
   global:
-    secure: "AzPDZG6e5yDiyqfRfrGi4R+WWdWrVpVa0/4kIq1qjXkyN6+t0hsU2qCmUmvgMS7ebvl87xh1mkLu7lK18gFV3KFF3q468kXTaefCZHTuW3X5yHUvrQX978ota+L+vq+UbKbHy3n9aORF/Cx+xrZCqpZGRcqJbUGxgQGGDYr1kEQ="
+    secure: "F9NejbEId2pcWX63BEd22D+Y5uV+1QuYjYi2MIENbJfyc2LXF7HFhjb02OtciSx/WcRSNxo/6T8V/7GpV2YjpmF92PzRsEmrBci038+2dTZmGrEwCwUYmuscSgvIWSNugYZJ1g/lS6/4nW98Z+KUX6umbzvwHCfnqoYQEUo17mU=
