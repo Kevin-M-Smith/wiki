@@ -17,7 +17,11 @@ script:
 - echo $BUNDLE_GEMFILE
 - pwd
 - ls
+- git checkout gh-pages
+- git log
 - cd ../
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
-- bundle exec gollum-site generate
+- bundle exec gollum-site generate ../wiki/
+- cd ../wiki
+- git status
