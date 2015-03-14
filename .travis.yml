@@ -1,4 +1,9 @@
 language: ruby
+sudo: false
+
+cache:
+- bundler
+- apt
 
 before_install: apt-get update && apt-get remove -y ruby1.8*
 install: 
