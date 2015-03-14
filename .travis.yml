@@ -29,9 +29,10 @@ script:
 - git init
 - git config user.name "Kevin M. Smith"
 - git config user.email "kms2227@columbia.edu"
-- git add . 
-- git commit -m $COMMIT_MESSAGE
-- git push --force --quiet "https://${GH_TOKEN}@github.com/Kevin-M-Smith/wiki.git" gh-pages
+- git add .
+- git checkout -b gh-pages
+- git commit -m "$COMMIT_MESSAGE"
+- git push --force --quiet "https://${GH_TOKEN}@github.com/Kevin-M-Smith/wiki.git" gh-pages:gh-pages
 
 env:
   global:
