@@ -37,4 +37,4 @@ script:
 
 env:
   global:
-    secure: "F9NejbEId2pcWX63BEd22D+Y5uV+1QuYjYi2MIENbJfyc2LXF7HFhjb02OtciSx/WcRSNxo/6T8V/7GpV2YjpmF92PzRsEmrBci038+2dTZmGrEwCwUYmuscSgvIWSNugYZJ1g/lS6/4nW98Z+KUX6umbzvwHCfnqoYQEUo17mU=
+    secure: "F9NejbEId2pcWX63BEd22D+Y5uV+1QuYjYi2MIENbJfyc2LXF7HFhjb02OtciSx/WcRSNxo/6T8V/7GpV2YjpmF92PzRsEmrBci038+2dTZmGrEwCwUYmuscSgvIWSNugYZJ1g/lS6/4nW98Z+KUX6umbzvwHCfnqoYQEUo17mU="
