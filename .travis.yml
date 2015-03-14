@@ -1,19 +1,18 @@
 language: ruby
-sudo: false
 
 cache:
 - bundler
 - apt
 
-before_install: apt-get update && apt-get remove -y ruby1.8*
+before_install: sudo apt-get update && sudo apt-get remove -y ruby1.8*
 install: 
-- apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3 zlib1g-dev
-- gem install bundle
+- sudo apt-get install -y git libicu-dev g++ build-essential gem make ruby1.9.3 zlib1g-dev
+- sudo gem install bundle
 
 script: bundle exec gem build gollum-site.gemspec 
 
 after_success:
-- gem install gollum-site
+- sudo gem install gollum-site
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
 - gollum-site generate
