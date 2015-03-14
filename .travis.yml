@@ -17,8 +17,8 @@ script:
 - echo $BUNDLE_GEMFILE
 - pwd
 - ls
-- git clone --single-branch --branch gh-pages https://github.com/Kevin-M-Smith/wiki.git wiki-pages
 - cd ../
+- git clone --single-branch --branch gh-pages https://github.com/Kevin-M-Smith/wiki.git wiki-pages
 - git clone https://github.com/Kevin-M-Smith/wiki.wiki.git
 - cd wiki.wiki
 - export WIKI_VERISON=`git rev-parse HEAD`
